@@ -6,11 +6,11 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
-    "gulp-bower": "0.0.13",
+    "gulp-bower": "^0.0.13",
     "gulp-notify": "^2.2.0",
     "gulp-sass": "^1.1.0",
-    "gulp-shell": "0.2.10",
-    "gulp-sourcemaps": "1.2.8"
+    "gulp-shell": "^0.2.10",
+    "gulp-sourcemaps": "^1.2.8"
   },
   "dependencies": {
     "gulp-install": "^0.6.0"
