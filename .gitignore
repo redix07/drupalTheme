@@ -1,0 +1,6 @@
+base-theme/bower_components
+base-theme/bower_components/*
+
+base-theme/node_modules
+base-theme/node_modules/*
+
