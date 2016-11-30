@@ -108,9 +108,9 @@ $_url_array = array(
     <br />
     <?php print render($content['body']);  ?>
     <div class="clearfix bottom-navi">
-      <?php print mind_node_sibling($node,'next',true,'','<div class="read-more-lab">'.t('next').'</div>',''); ?>
+      <?php print base_theme_name_node_sibling($node,'next',true,'','<div class="read-more-lab">'.t('next').'</div>',''); ?>
       <a class="back-link read-more-butt" href="<?php print base_path().$_url_array[$language->language];?>" ><div class="read-more-lab"><?php print t ('back');?></div>« <?php print t('News'); ?></a>
-      <?php print mind_node_sibling($node,'prev',true,'','<div class="read-more-lab">'.t('prev').'</div>',''); ?>
+      <?php print base_theme_name_node_sibling($node,'prev',true,'','<div class="read-more-lab">'.t('prev').'</div>',''); ?>
     </div>
   <?php elseif ($view_mode == 'token'): ?>
     <div class="row">

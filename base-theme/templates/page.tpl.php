@@ -46,7 +46,7 @@
       <div class="bg-white">
         <?php if ($is_front): ?>
           <div class="top-foto">
-            <img src="<?php print drupal_get_path('theme', 'mind'); ?>/img/top-foto.jpg" alt="<?php print $site_name; ?>" class="img-responsive top-foto"/>
+            <img src="<?php print drupal_get_path('theme', 'base_theme_name'); ?>/img/top-foto.jpg" alt="<?php print $site_name; ?>" class="img-responsive top-foto"/>
           </div>
         <?php endif; ?>
         <!-- content page -->

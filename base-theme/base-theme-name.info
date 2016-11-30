@@ -5,7 +5,7 @@ version = VERSION
 core = 7.x
 
 stylesheets[all][] = css/style.css
-stylesheets[all][] = css/mind.css
+stylesheets[all][] = css/base_theme_name.css
 
 scripts[]          = js/lib/bootstrap.min.js
 scripts[]          = js/lib/tmstickup.js
