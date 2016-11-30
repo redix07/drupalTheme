@@ -1,5 +1,5 @@
-name = base-theme-name
-description = base-theme-name - Main THEME
+name = base_theme_name
+description = base_theme_name - Main THEME
 package = Core
 version = VERSION
 core = 7.x
