@@ -1,0 +1,5 @@
+#header {
+  #nav {
+    @include boot-menu(white, 'left');
+  }
+}

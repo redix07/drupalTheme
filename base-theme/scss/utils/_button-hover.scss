@@ -1,0 +1,42 @@
+/**
+ * $BUTTON
+ */
+@mixin buton-read-more() {
+  position: relative;
+  overflow: hidden;
+  // ------------------
+  &:before,
+  &:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0;
+    background-color: black;
+    height: 50%;
+    width: 100%;
+    opacity: 0.1;
+    overflow: hidden;
+    cursor: pointer;
+    @include transition(all 0.2s ease-in-out);
+  }
+  &:before {
+    top: 100%;
+  }
+  &:after {
+    bottom: 100%;
+  }
+  // ------------------
+  &:hover::before,
+  &:hover::after {
+    opacity: 0.3;
+    cursor: pointer;
+  }
+
+  &:hover::before {
+    @include transform(translateY(-100%) translateZ(0));
+  }
+
+  &:hover::after {
+    @include transform(translateY(100%) translateZ(0));
+  }
+}

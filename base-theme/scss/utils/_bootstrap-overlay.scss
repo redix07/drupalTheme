@@ -1,0 +1,44 @@
+// bootstrap overlay
+// ====
+
+@mixin boot-menu($back1:white,$block-align:'left') {
+  .navbar-collapse {
+    margin: 0;
+    padding: 0;
+    border: none;
+    &.in {
+      overflow-y: hidden;
+      overflow-x: hidden;
+    }
+    @if $block-align == "left" {
+      float: left;
+    } @else if $block-align == "right" {
+      float: right;
+    } @else if $block-align == "center" {
+      ul.menu {
+        width: -moz-fit-content;
+        width: -webkit-fit-content;
+        width: fit-content;
+        margin: 0 auto;
+        @media (max-width: 768px) {
+          width: 100%;
+          li {
+            float: none;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  ul.menu {
+    @include clearfix();
+    margin: 0;
+    padding: 0;
+    display: block;
+    li {
+      float: left;
+      display: block;
+    }
+  }
+}
+

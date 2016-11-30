@@ -1,0 +1,12 @@
+{
+  "name": "boodstrap_sass",
+  "description": "This is my playground where I learn theming bower",
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6",
+    "font-awesome": "fontawesome#^4.5.0",
+    "normalize-scss": "normalize.scss#^4.0.3"
+  },
+  "devDependencies": {
+    "normalize-scss": "normalize.scss#^4.0.3"
+  }
+}
