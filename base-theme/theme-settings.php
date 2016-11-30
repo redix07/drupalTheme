@@ -5,9 +5,9 @@
  * General theme settings elements.
  */
 
-function mind_form_system_theme_settings_alter(&$form, &$form_state) {
+function base_theme_name_form_system_theme_settings_alter(&$form, &$form_state) {
 	
-	$form['mind_settings'] = array(
+	$form['base_theme_name_settings'] = array(
 			'#type' => 'vertical_tabs',
 			'#weight' => -10,
 			'#prefix' => t('<h3>Adsolutions BasicTheme Settings</h3>'),
@@ -21,13 +21,13 @@ function mind_form_system_theme_settings_alter(&$form, &$form_state) {
 	
 	
 	/* GENERAL SETTINGS */
-	$form['mind_settings']['google'] = array(
+	$form['base_theme_name_settings']['google'] = array(
 			'#type' => 'fieldset',
 			'#title' => t('Google setings'),
 			'#weight' => 6,
 	);
 	
-	$form['mind_settings']['google']['google-analytics']= array(
+	$form['base_theme_name_settings']['google']['google-analytics']= array(
 			'#type' => 'fieldset',
 			'#title' => t('Google Analytics'),
 			'#description' => t(''),
@@ -35,13 +35,13 @@ function mind_form_system_theme_settings_alter(&$form, &$form_state) {
 			'#collapsed' => TRUE,
 	);
 	
-	$form['mind_settings']['google']['google-analytics']['tracker'] = array(
+	$form['base_theme_name_settings']['google']['google-analytics']['tracker'] = array(
 			'#type' => 'textfield',
 			'#title' => t('Tracker'),
 			'#default_value' => theme_get_setting('tracker'),
 	);
 	
-	$form['mind_settings']['google']['google-maps']= array(
+	$form['base_theme_name_settings']['google']['google-maps']= array(
 			'#type' => 'fieldset',
 			'#title' => t('Google Maps'),
 			'#description' => t('Enter the latitude/longitude coordinates of your address. To lookup a set of coordinates, visit
@@ -50,13 +50,13 @@ function mind_form_system_theme_settings_alter(&$form, &$form_state) {
 			'#collapsed' => TRUE,
 	);
 	
-	$form['mind_settings']['google']['google-maps']['latitude'] = array(
+	$form['base_theme_name_settings']['google']['google-maps']['latitude'] = array(
 			'#type' => 'textfield',
 			'#title' => t('Longitude'),
 			'#default_value' => theme_get_setting('latitude'),
 	);
 	
-	$form['mind_settings']['google']['google-maps']['longitude'] = array(
+	$form['base_theme_name_settings']['google']['google-maps']['longitude'] = array(
 			'#type' => 'textfield',
 			'#title' => t('Longitude'),
 			'#default_value' => theme_get_setting('longitude'),
@@ -64,13 +64,13 @@ function mind_form_system_theme_settings_alter(&$form, &$form_state) {
 	
 	/* LAYOUT SETTINGS */
 	
-	$form['mind_settings']['layout'] = array(
+	$form['base_theme_name_settings']['layout'] = array(
 			'#type' => 'fieldset',
 			'#title' => t('Layout'),
 			'#weight' => 2,
 	);
 	
-	$form['mind_settings']['layout']['layoutWidth'] = array(
+	$form['base_theme_name_settings']['layout']['layoutWidth'] = array(
 			'#type' => 'radios',
 			'#field_prefix' => t('Select the layout width. If a background color and/or image is being used, the "boxed" width is recommended.<br/><br/>'),
 			'#title' => t('Layout Width'),
@@ -82,7 +82,7 @@ function mind_form_system_theme_settings_alter(&$form, &$form_state) {
 	);
 
 	
-	$form['mind_settings']['layout']['responsive'] = array(
+	$form['base_theme_name_settings']['layout']['responsive'] = array(
 			'#type'          => 'checkbox',
 			'#prefix'		 => '<label class="custom-label">Responsive Layout</label>',
 			'#title'         => t('Enable Responsive Layout?'),
@@ -90,7 +90,7 @@ function mind_form_system_theme_settings_alter(&$form, &$form_state) {
 			'#default_value' => theme_get_setting('responsive'),
 	);
 	
-	$form['mind_settings']['layout']['sticky-header'] = array(
+	$form['base_theme_name_settings']['layout']['sticky-header'] = array(
 			'#type'          => 'checkbox',
 			'#prefix'		 => '<label class="custom-label">Sticky Header</label>',
 			'#title'         => t('Enable Sticky Header?'),
@@ -99,10 +99,10 @@ function mind_form_system_theme_settings_alter(&$form, &$form_state) {
 	);
 
 	/* GLOBAL SETTINGS */
-	mind_settings_global_tab($form);
+	base_theme_name_settings_global_tab($form);
 }
 
-function mind_settings_global_tab(&$form) {
+function base_theme_name_settings_global_tab(&$form) {
 	// Toggles
 	$form['theme_settings']['toggle_logo']['#default_value'] = theme_get_setting('toggle_logo');
 	$form['theme_settings']['toggle_name']['#default_value'] = theme_get_setting('toggle_name');
@@ -119,7 +119,7 @@ function mind_settings_global_tab(&$form) {
 	$form['favicon']['default_favicon']['#default_value'] = theme_get_setting('default_favicon');
 	$form['favicon']['settings']['favicon_path']['#default_value'] = theme_get_setting('favicon_path');
 
-	$form['mind_settings']['global_settings'] = array(
+	$form['base_theme_name_settings']['global_settings'] = array(
 			'#type' => 'fieldset',
 			'#title' => t('Global'),
 			'#weight' => 1,
@@ -130,9 +130,9 @@ function mind_settings_global_tab(&$form) {
 	$form['logo']['#collapsed'] = FALSE;
 	$form['favicon']['#collapsible'] = TRUE;
 	$form['favicon']['#collapsed'] = FALSE;
-	$form['mind_settings']['global_settings']['logo'] = $form['logo'];
-	$form['mind_settings']['global_settings']['favicon'] = $form['favicon'];
-	$form['mind_settings']['global_settings']['theme_settings'] = $form['theme_settings'];
+	$form['base_theme_name_settings']['global_settings']['logo'] = $form['logo'];
+	$form['base_theme_name_settings']['global_settings']['favicon'] = $form['favicon'];
+	$form['base_theme_name_settings']['global_settings']['theme_settings'] = $form['theme_settings'];
 
 	unset($form['theme_settings']);
 	unset($form['logo']);

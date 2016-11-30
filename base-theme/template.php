@@ -3,7 +3,7 @@
 /**
  * Add body classes if certain regions have content.
  */
-function mind_preprocess_page(&$variables , $hook) {
+function base_theme_name_preprocess_page(&$variables , $hook) {
 	variable_get('text_contactsupport_info', '');
 	
 	$variables['custom_page_type_str'] = '';
@@ -58,7 +58,7 @@ function mind_preprocess_page(&$variables , $hook) {
 /**
  * Override css
  */
-function mind_css_alter(&$css) {
+function base_theme_name_css_alter(&$css) {
 
 	// Sort CSS items, so that they appear in the correct order.
 	// This is taken from drupal_get_css().
@@ -90,7 +90,7 @@ function mind_css_alter(&$css) {
 /**
  * Override js
  */
-function mind_js_alter(&$js) {
+function base_theme_name_js_alter(&$js) {
 	uasort($js, 'drupal_sort_css_js');
 	$weight = 0;
 	foreach ($js as $name => $javascript) {
@@ -104,7 +104,7 @@ function mind_js_alter(&$js) {
 /**
  * Override or insert variables into the page template for HTML output.
  */
-function mind_process_html(&$variables) {
+function base_theme_name_process_html(&$variables) {
 	$variables['sticky_classes'] = '';
   	if(theme_get_setting('sticky-header') == 1) {
 		$variables['sticky_classes'] = 'sticky-header';
@@ -113,14 +113,14 @@ function mind_process_html(&$variables) {
 /**
  * Override or insert variables into the page template.
  */
-function mind_process_page(&$variables) {
+function base_theme_name_process_page(&$variables) {
 }
 
 
 /**
  * Override or insert variables into the node template.
  */
-function mind_preprocess_node(&$variables) {
+function base_theme_name_preprocess_node(&$variables) {
   if ($variables['view_mode'] == 'full' && node_is_page($variables['node'])) {
     $variables['classes_array'][] = 'node-full';
   }
@@ -129,7 +129,7 @@ function mind_preprocess_node(&$variables) {
 /**
  * Override or insert variables into the block template.
  */
-function mind_preprocess_block(&$variables) {
+function base_theme_name_preprocess_block(&$variables) {
   // In the header region visually hide block titles.
   if ($variables['block']->region == 'header') {
     $variables['title_attributes_array']['class'][] = 'element-invisible';
@@ -139,7 +139,7 @@ function mind_preprocess_block(&$variables) {
 /**
  * Override or insert variables into the block template.
  */
-function mind_preprocess_textfield(&$vars) {
+function base_theme_name_preprocess_textfield(&$vars) {
 	if (isset($vars['element'])  ){
 		$vars['element']['#attributes']['class'][] = 'form-control';
 	}
@@ -148,7 +148,7 @@ function mind_preprocess_textfield(&$vars) {
 /**
  * Override or insert variables into the block template.
  */
-function mind_preprocess_password(&$vars) {
+function base_theme_name_preprocess_password(&$vars) {
 	if (isset($vars['element'])  ){
 		$vars['element']['#attributes']['class'][] = 'form-control';
 	}
@@ -157,7 +157,7 @@ function mind_preprocess_password(&$vars) {
 /**
  * Override or insert variables into the block template.
  */
-function mind_preprocess_textarea(&$vars) {
+function base_theme_name_preprocess_textarea(&$vars) {
 	if (isset($vars['element'])  ){
 		$vars['element']['#attributes']['class'][] = 'form-control';
 	}
@@ -166,7 +166,7 @@ function mind_preprocess_textarea(&$vars) {
 /**
  * Override or insert variables into the block template.
  */
-function mind_form_alter(&$form,&$form_state, $form_id) {
+function base_theme_name_form_alter(&$form,&$form_state, $form_id) {
   // In the header region visually hide block titles.
   if (isset($form['quickform-nameform'])) {
     $form['quickform-nameform']['#attributes']['class'][] = 'form-control';
@@ -194,7 +194,7 @@ function mind_form_alter(&$form,&$form_state, $form_id) {
 			$drp_wraper .= '</ul>';
 			$drp_wraper .= '</div>';
 			$form['type']['#field_prefix'] = $drp_wraper ;
-			drupal_add_js(drupal_get_path('theme', 'mind') .'/js/select.boot.override.action.js');
+			drupal_add_js(drupal_get_path('theme', 'base_theme_name') .'/js/select.boot.override.action.js');
 
 			// alter submit & reset boodstrap class
 			if (isset($form['submit'])) {
@@ -222,14 +222,14 @@ function mind_form_alter(&$form,&$form_state, $form_id) {
 				$bufListAlter .= '</ul>';
 			}
 			$form['rid']['#prefix'] = $bufListAlter;
-			drupal_add_js(drupal_get_path('theme', 'mind') .'/js/select.action.js');
+			drupal_add_js(drupal_get_path('theme', 'base_theme_name') .'/js/select.action.js');
 		}
 	}
 } 
 /**
  * Override breadcrumb.
  */
-function mind_breadcrumb($variables) {
+function base_theme_name_breadcrumb($variables) {
   $sep = '  &raquo; ';
   if (count($variables['breadcrumb']) > 0) {
     return implode($sep, $variables['breadcrumb']) . $sep;
@@ -241,7 +241,7 @@ function mind_breadcrumb($variables) {
 /**
  * Override breadcrumb.
  */
-function mind_preprocess_image(&$variables) {
+function base_theme_name_preprocess_image(&$variables) {
 	
 	if ( isset($variables['style_name']) ) {
 		if ($variables['style_name'] == 'thumb-002-round'){
@@ -256,7 +256,7 @@ function mind_preprocess_image(&$variables) {
 /**
  * get articles by user name
  */
-function mind_get_article_urlbyname($name){
+function base_theme_name_get_article_urlbyname($name){
 	$user 	 = user_load_by_name($name);
 	$uname	 = '';
 	if ( isset($user) && isset($user->uid) ) {
@@ -275,7 +275,7 @@ function mind_get_article_urlbyname($name){
 }
 
 
-function mind_spanReplace($str){
+function base_theme_name_spanReplace($str){
 	$subject 	= " | ";
 	$space_location = strpos($str,$subject);
 	if($space_location){
@@ -284,7 +284,7 @@ function mind_spanReplace($str){
 	return $str;
 }
 
-function mind_getAhrehfromstr($str){
+function base_theme_name_getAhrehfromstr($str){
 	$doc = new DOMDocument(); 
 	$doc->loadHTML($str); 
 	$arr = $doc->getElementsByTagName("a"); 
@@ -294,13 +294,13 @@ function mind_getAhrehfromstr($str){
 	return $href;
 }
 
-function mind_getStrfromstr($str){
+function base_theme_name_getStrfromstr($str){
 	$dom = new DOMDocument();
 	$dom->loadHTML($str);
 	return $dom->getElementsByTagName('img')->item(0)->getAttribute('src');
 }
 
-function mind_child_select_nodes_type($type,$renderContent = true, $items = 0,$wOrder = false) {
+function base_theme_name_child_select_nodes_type($type,$renderContent = true, $items = 0,$wOrder = false) {
 	$query = db_select('node', 'n')
     ->fields('n', array('nid'))
     ->fields('n', array('type'))
@@ -346,7 +346,7 @@ function mind_child_select_nodes_type($type,$renderContent = true, $items = 0,$w
 	}
 }
 
-function mind_node_sibling($node, $dir = 'next', $next_node_text=false,$field_name='',$prepend_text = '', $append_text = '', $extra_class = 'read-more-butt') {
+function base_theme_name_node_sibling($node, $dir = 'next', $next_node_text=false,$field_name='',$prepend_text = '', $append_text = '', $extra_class = 'read-more-butt') {
 	if ($field_name != ''){ $tmp_terms = field_get_items('node', $node, $field_name); }
 	if (isset($tmp_terms[0]['tid']) && $tmp_terms[0]['tid'] > 0){
 		$query = 'SELECT n.nid, n.title FROM {node} n WHERE nid IN (

@@ -1,5 +1,5 @@
-name = mind
-description = Mind - Main THEME
+name = base-theme-name
+description = base-theme-name - Main THEME
 package = Core
 version = VERSION
 core = 7.x
@@ -28,8 +28,8 @@ regions[footer_fourthcolumn] = Footer fourth column
 
 regions[footer_bottom] = Footer Bottom
 
-; Information added by drupal.org packaging script on 2016-07-08
-version = "7.50"
+; Information added by drupal.org packaging script on 2016-11-28
+version = "7.52"
 project = "drupal"
 datestamp = "1422626741"
 
