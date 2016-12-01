@@ -6,7 +6,6 @@
  */
 
 function base_theme_name_form_system_theme_settings_alter(&$form, &$form_state) {
-	
 	$form['base_theme_name_settings'] = array(
 			'#type' => 'vertical_tabs',
 			'#weight' => -10,
@@ -14,7 +13,7 @@ function base_theme_name_form_system_theme_settings_alter(&$form, &$form_state) 
 			'#attached' => array(
 					'css' => array(drupal_get_path('theme', $GLOBALS['theme']) . '/css/admin.css'),
 					'js' => array(
-						drupal_get_path('theme', $GLOBALS['theme']) . '/js/admin/admin.js',
+						drupal_get_path('theme', 'base_theme_name') . '/js/admin/admin.js',
 					),
 			),
 	);
