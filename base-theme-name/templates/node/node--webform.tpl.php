@@ -19,7 +19,7 @@
   <?php endif; ?>
 </div>
 <?php
-drupal_add_js(drupal_get_path('theme', 'centrump').'/js/maps-google.js' , array('scope' => 'footer',));
+drupal_add_js(drupal_get_path('theme', $GLOBALS['theme'] ).'/js/maps-google.js' , array('scope' => 'footer',));
 drupal_add_js("jQuery(document).ready(function () { initializeGM('maps-wraper',52.1946316, 21.0214938, 17 , 'Centrum Przeprowadzki - Warszawa', '<p>ul. Żorska 56 (Agata Meble), ul. Malczewskiego 16,<br />05-091 Ząbki k W-wy<p>tel.: <strong>601 338 516</strong></p>'); });",
   array('type' => 'inline', 'scope' => 'footer')
 );
