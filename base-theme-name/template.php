@@ -108,6 +108,27 @@ function base_theme_name_preprocess_node(&$variables) {
   if ($variables['view_mode'] == 'full' && node_is_page($variables['node'])) {
     $variables['classes_array'][] = 'node-full';
   }
+
+  if ($variables['view_mode'] == 'full' && node_is_page($variables['node'])) {
+    $variables['classes_array'][] = 'node-full';
+  } else if ($variables['view_mode'] == 'token' ) {
+    $variables['classes_array'][] = 'node-token';
+  } else if ($variables['view_mode'] == 'teaser' ) {
+    $variables['classes_array'][] = 'node-teaser';
+  }
+
+  if ($variables['view_mode'] == 'full') {
+    if ($prev = _base_theme_name_node_nextprev_navi($variables['node'],'prev')) {
+      $variables['prev_url']   = $prev['href'];
+      $variables['prev_title'] = $prev['title'];
+      $variables['prev_thumb'] = $prev['thumb'];
+    }
+    if ($next = _base_theme_name_node_nextprev_navi($variables['node'],'next') ) {
+      $variables['next_url']   = $next['href'];
+      $variables['next_title'] = $next['title'];
+      $variables['next_thumb'] = $next['thumb'];
+    }
+  }
 }
 
 /**
@@ -222,3 +243,22 @@ function base_theme_name_preprocess_image(&$variables) {
 
 
 
+function _base_theme_name_node_nextprev_navi($node,$dir) {
+  $query = 'SELECT n.nid, n.title FROM {node} n WHERE ' . 'n.created ' . ($dir == 'prev' ? '<' : '>') . ' :created AND n.type = :type AND n.status = 1 ' . "AND language IN (:lang, 'und') " . 'ORDER BY n.created ' . ($dir == 'prev' ? 'DESC' : 'ASC') . ' LIMIT 1';
+  $row = db_query($query, array(
+    ':created' => $node->created,
+    ':type' => $node->type,
+    ':lang' => $node->language
+  ))->fetchObject();
+  if ($row) {
+    $href = url( 'node/'.$row->nid);
+    drupal_add_html_head_link(array('rel' => $dir, 'href' => $href));
+    return array(
+      'href'  => $href,
+      'title' => check_plain($row->title),
+      'thumb' => lpd_get_render_view_node($row->nid,'search_index'),
+    );
+  } else {
+    return FALSE;
+  }
+}
