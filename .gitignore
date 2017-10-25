@@ -1,3 +1,6 @@
+.idea
+.idea*
+
 base-theme/bower_components
 base-theme/bower_components/*
 

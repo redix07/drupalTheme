@@ -13,11 +13,8 @@ scripts[]          = js/mytheme-action.js
 
 regions[breadcrumb] = Breadcrumb
 regions[help] = Help
-regions[box_top] = Box top
 
-regions[pagetop] = Page top
 regions[content] = Content
-regions[pagebottom] = Page bottom
 
 regions[sidebar_first] = Sidebar first
 regions[sidebar_second] = Sidebar second

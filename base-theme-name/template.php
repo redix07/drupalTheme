@@ -14,16 +14,6 @@ function base_theme_name_preprocess_page(&$variables , $hook) {
 		} else {
 			$variables['custom_page_type'] = false;
 		}
-	} else {
-		if (isset($_GET['q']) && $_GET['q'] == 'userspj'){
-			$variables['custom_page_type'] = true;
-			$variables['custom_page_type_str'] = 'userspj';
-		} else if (isset($_GET['q']) && $_GET['q'] == 'artykuly'){
-			$variables['custom_page_type'] = true;
-			$variables['custom_page_type_str'] = 'artykuly';
-		}	else {
-			$variables['custom_page_type'] = false;
-		}
 	}
 	$menu_tree = menu_tree_all_data('main-menu');
 	$variables['mainmenu_expanded'] = menu_tree_output($menu_tree);
@@ -59,7 +49,6 @@ function base_theme_name_preprocess_page(&$variables , $hook) {
  * Override css
  */
 function base_theme_name_css_alter(&$css) {
-
 	// Sort CSS items, so that they appear in the correct order.
 	// This is taken from drupal_get_css().
 	uasort($css, 'drupal_sort_css_js');
@@ -109,11 +98,6 @@ function base_theme_name_process_html(&$variables) {
   	if(theme_get_setting('sticky-header') == 1) {
 		$variables['sticky_classes'] = 'sticky-header';
 	} 
-}
-/**
- * Override or insert variables into the page template.
- */
-function base_theme_name_process_page(&$variables) {
 }
 
 
@@ -226,158 +210,15 @@ function base_theme_name_form_alter(&$form,&$form_state, $form_id) {
 		}
 	}
 } 
-/**
- * Override breadcrumb.
- */
-function base_theme_name_breadcrumb($variables) {
-  $sep = '  &raquo; ';
-  if (count($variables['breadcrumb']) > 0) {
-    return implode($sep, $variables['breadcrumb']) . $sep;
-  }
-  else {
-    return t("Home");
-  }
-}
+
 /**
  * Override breadcrumb.
  */
 function base_theme_name_preprocess_image(&$variables) {
-	
 	if ( isset($variables['style_name']) ) {
-		if ($variables['style_name'] == 'thumb-002-round'){
-			$variables['attributes']['class'][] = 'img-responsive ';
-			$variables['attributes']['class'][] = 'img-circle ';
-		} else {
-			$variables['attributes']['class'][] = 'img-responsive';
-		}
-    } else {
-	}
-}
-/**
- * get articles by user name
- */
-function base_theme_name_get_article_urlbyname($name){
-	$user 	 = user_load_by_name($name);
-	$uname	 = '';
-	if ( isset($user) && isset($user->uid) ) {
-		$profile = profile2_load_by_user($user->uid);
-		$uname = $user->name;
-		if (isset($profile['author']->field_profile_name)){
-			$uname = $profile['author']->field_profile_name['und'][0]['value'];
-		}
-		if (isset($profile['author']->field_profile_surname)){
-			$uname .= ' '.$profile['author']->field_profile_surname['und'][0]['value'];
-		}
-		return l($uname, 'articles/author/' . $user->uid, array('attributes' => array('class' => '',)));
-	} else {
-		return false;
+    $variables['attributes']['class'][] = 'img-responsive';
 	}
 }
 
 
-function base_theme_name_spanReplace($str){
-	$subject 	= " | ";
-	$space_location = strpos($str,$subject);
-	if($space_location){
-		$str = "<span>".str_replace ($subject, "</span>", $str);
-	} 
-	return $str;
-}
 
-function base_theme_name_getAhrehfromstr($str){
-	$doc = new DOMDocument(); 
-	$doc->loadHTML($str); 
-	$arr = $doc->getElementsByTagName("a"); 
-	foreach($arr as $item) { 
-		$href = $item->getAttribute("href"); 
-	}
-	return $href;
-}
-
-function base_theme_name_getStrfromstr($str){
-	$dom = new DOMDocument();
-	$dom->loadHTML($str);
-	return $dom->getElementsByTagName('img')->item(0)->getAttribute('src');
-}
-
-function base_theme_name_child_select_nodes_type($type,$renderContent = true, $items = 0,$wOrder = false) {
-	$query = db_select('node', 'n')
-    ->fields('n', array('nid'))
-    ->fields('n', array('type'))
-    ->condition('n.type', $type);
-	
-	if ($wOrder == true){
-	    $query->join('weight_weights', 'w', 'w.entity_id = n.nid');
-		$order = array('w.weight'=>'ASC', 'n.created' => 'ASC');
-		foreach ($order as $field => $direction) {
-    		$query->orderBy($field, $direction);
-			list($table_alias, $name) = explode('.', $field);
-		    $query->addField($table_alias, $name);
-  		}	
-    } else {
-		$query->orderBy('n.created', 'DESC');
-	}
-	$nids = $query->execute()->fetchCol(); 
-	$children = node_load_multiple($nids);
-	$returnContent 	= '';
-	$itemCunter 	= 0;
-	if (count ($children ) > 0){
-		foreach ($children as $index =>$nodes) {
-			$nodeObj = node_load($nodes->nid);
-			$view_mode = 'token'; // Or 'full' for example
-			if ($nodeObj->status == 1){
-				$view = node_view($nodeObj, $view_mode);
-				if ($renderContent){
-					print render($view);
-				} else {
-					$returnContent .= render($view);
-				}
-			}
-			$itemCunter++;
-			if ($items > 0 && $itemCunter >= $items){
-				break;
-			}
-		}
-		if (!$renderContent){
-			return $returnContent;
-		}
-	} else {
-		return false;
-	}
-}
-
-function base_theme_name_node_sibling($node, $dir = 'next', $next_node_text=false,$field_name='',$prepend_text = '', $append_text = '', $extra_class = 'read-more-butt') {
-	if ($field_name != ''){ $tmp_terms = field_get_items('node', $node, $field_name); }
-	if (isset($tmp_terms[0]['tid']) && $tmp_terms[0]['tid'] > 0){
-		$query = 'SELECT n.nid, n.title FROM {node} n WHERE nid IN (
-					SELECT nid FROM {taxonomy_index} ti
-					LEFT JOIN {taxonomy_term_data} td ON ti.tid = td.tid
-					WHERE td.tid = :tid) AND '
-           . 'n.created ' . ($dir == 'prev' ? '<' : '>') . ' :created AND n.type = :type AND n.status = 1 '
-           . "AND language IN (:lang, 'und') "
-           . 'ORDER BY n.created ' . ($dir == 'prev' ? 'DESC' : 'ASC') . ' LIMIT 1';
-		$row = db_query($query, array(':tid' => $tmp_terms[0]['tid'] ,':created' => $node->created, ':type' => $node->type, ':lang' => $node->language))->fetchObject();
-	} else {
-		$query = 'SELECT n.nid, n.title FROM {node} n WHERE '
-           . 'n.created ' . ($dir == 'prev' ? '<' : '>') . ' :created AND n.type = :type AND n.status = 1 '
-           . "AND language IN (:lang, 'und') "
-           . 'ORDER BY n.created ' . ($dir == 'prev' ? 'DESC' : 'ASC') . ' LIMIT 1';	   
-		$row = db_query($query, array(':created' => $node->created, ':type' => $node->type, ':lang' => $node->language))->fetchObject();
-	}
-	if ($row) {
-		drupal_add_html_head_link(array(
-      		'rel' => $dir,
-		    'type' => 'text/html',
-      		'title' => $row->title,
-      		'href' => url('node/' . $row->nid, array('absolute' => TRUE)),
-    	));
-    	if ($next_node_text){
-			$text = (strlen($row->title)<30)? $row->title : substr($row->title, 0,30).' ...';
-			return l($prepend_text.$text.$append_text, 'node/' . $row->nid, array('html' => true, 'attributes' => array('class' => ' '.$dir.'-page '.$extra_class,'rel' => array($dir))));
-		} else {
-			return l($prepend_text.$append_text, 'node/' . $row->nid, array('attributes' => array('class' => ' '.$dir.'-page '.$extra_class,'rel' => array($dir))));
-		}
-  	} else {
-    	return FALSE;
-  	}
-}

@@ -80,63 +80,29 @@
  * @ingroup themeable
  */
 ?>
-<?php
-global $language;
-$_url_array = array(
-  'pl' => 'aktualnosci',
-  'en' => 'en/news',
-  'ru' => 'ru/news',
-);
-?>
-<div id="node-<?php print $node->nid; ?>" class="<?php print $classes.' node-'.$view_mode; ?> clearfix "<?php print $attributes; ?>>
+
+<div id="node-<?php print $node->nid; ?>" class="<?php print $classes . ' node-' . $view_mode; ?> clearfix "<?php print $attributes; ?>>
   <?php if ($view_mode == 'teaser') : ?>
-    <div class="row">
-      <div class="col-md-2 col-sm-2">
-        <div class="created font-base-r">
-          <p class="mounth"><?php print t(date('M',$node->created))?></p>
-          <p class="day"><?php print date('d',$node->created)?></p>
-        </div>
-      </div>
-      <div class="box-content col-md-10 col-sm-10">
-        <h3 class="font-base-r"><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h3>
-        <?php print render($content['field_image']);  ?>
-        <?php print render($content['body']);  ?>
-      </div>
-    </div>
-  <?php elseif ($view_mode == 'full'): ?>
-    <?php print strip_tags(render($content['field_image']),'<img>');  ?>
-    <br />
-    <?php print render($content['body']);  ?>
-    <div class="clearfix bottom-navi">
-      <?php print base_theme_name_node_sibling($node,'next',true,'','<div class="read-more-lab">'.t('next').'</div>',''); ?>
-      <a class="back-link read-more-butt" href="<?php print base_path().$_url_array[$language->language];?>" ><div class="read-more-lab"><?php print t ('back');?></div>« <?php print t('News'); ?></a>
-      <?php print base_theme_name_node_sibling($node,'prev',true,'','<div class="read-more-lab">'.t('prev').'</div>',''); ?>
-    </div>
-  <?php elseif ($view_mode == 'token'): ?>
-    <div class="row">
-      <div class="col-md-3 col-sm-3 col-xs-4">
-        <?php print strip_tags(render($content['field_image']),'<img><a>');  ?>
-      </div>
-      <div class="col-md-9 col-sm-8 col-xs-8">
-        <h5 class="font-base-r"><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h5>
-        <p class="add-data"><?php print t('add').': '.date('d',$node->created).' '.t(date('M',$node->created)).' '.date('Y',$node->created);?></p>
-        <p><?php print strip_tags(render($content['body']));  ?></p>
-      </div>
-    </div>
-  <?php elseif ($view_mode == 'rss'): ?>
-    <div class="row">
-      <div class="col-md-3 col-sm-3 col-xs-4">
-        <?php print strip_tags(render($content['field_image']),'<img><a>');  ?>
-      </div>
-      <div class="col-md-9 col-sm-8 col-xs-8">
-        <h5 class="font-base-r"><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h5>
-        <p><?php print strip_tags(render($content['body']));  ?></p>
-      </div>
-    </div>
-  <?php else: ?>
     <?php if (!$page): ?>
       <h3<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h3>
     <?php endif; ?>
+      <div class="content"<?php print $content_attributes; ?>>
+        <?php print render($content); ?>
+      </div>
+  <?php endif; ?>
+  <?php elseif
+  ($view_mode == 'full'): ?>
+    <?php if (!$page): ?>
+    <h3<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h3>
+  <?php endif; ?>
+    <div class="content"<?php print $content_attributes; ?>>
+      <?php print render($content); ?>
+    </div>
+  <?php endif; ?>
+  <?php else: ?>
+    <?php if (!$page): ?>
+    <h3<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h3>
+  <?php endif; ?>
     <div class="content"<?php print $content_attributes; ?>>
       <?php print render($content); ?>
     </div>
