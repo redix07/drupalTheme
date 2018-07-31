@@ -7,6 +7,7 @@
     "normalize-scss": "normalize.scss#^4.0.3"
   },
   "devDependencies": {
-    "normalize-scss": "normalize.scss#^4.0.3"
+    "normalize-scss": "normalize.scss#^4.0.3",
+    "breakpoint-sass": "^2.7.1"
   }
 }
