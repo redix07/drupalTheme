@@ -27,7 +27,8 @@ var autoprefixerOptions = {
 
 var config = {
   sassPath: './sass',
-  bowerDir: './bower_components/'
+  bowerDir: './bower_components/',
+  susyDir: 'node_modules/susy/sass/'
 };
 
 // TASK - Sass.
@@ -45,6 +46,7 @@ gulp.task('sass', function() {
           config.bowerDir + '/normalize-scss/sass',
           config.bowerDir + '/bootstrap-sass/assets/stylesheets',
           config.bowerDir + '/breakpoint-sass/stylesheets',
+          config.susyDir,
           config.sassPath
         ],
         sourceMap: 'sass'
